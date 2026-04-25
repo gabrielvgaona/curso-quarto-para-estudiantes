@@ -1,0 +1,74 @@
+name: Deploy Quarto site to cPanel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Quarto CLI
+        uses: quarto-dev/quarto-action@v2
+        with:
+          install: true
+
+      - name: Render Quarto site
+        run: quarto render
+
+      - name: Deploy site to cPanel
+        env:
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
+          CPANEL_PASSWORD: ${{ secrets.CPANEL_PASSWORD }}
+          CPANEL_TARGET_DIR: ${{ secrets.CPANEL_TARGET_DIR }}
+          CPANEL_PROTOCOL: ${{ secrets.CPANEL_PROTOCOL }}
+          CPANEL_PORT: ${{ secrets.CPANEL_PORT }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+          HOST="$CPANEL_HOST"
+          USERNAME="$CPANEL_USERNAME"
+          PASSWORD="$CPANEL_PASSWORD"
+          TARGET_DIR="$CPANEL_TARGET_DIR"
+          PROTOCOL="${CPANEL_PROTOCOL:-sftp}"
+          PORT="$CPANEL_PORT"
+
+          if [ -z "$HOST" ] || [ -z "$USERNAME" ] || [ -z "$PASSWORD" ] || [ -z "$TARGET_DIR" ]; then
+            echo "Error: One or more required secrets are missing."
+            exit 1
+          fi
+
+          if [ -z "$PORT" ]; then
+            if [ "$PROTOCOL" = "sftp" ]; then
+              PORT=22
+            else
+              PORT=21
+            fi
+          fi
+
+          echo "Deploying _book/ to $PROTOCOL://$HOST:$PORT/$TARGET_DIR"
+
+          if [ "$PROTOCOL" = "sftp" ]; then
+            lftp -u "$USERNAME","$PASSWORD" -p "$PORT" sftp://"$HOST" <<'EOF'
+              set sftp:auto-confirm yes
+              mirror -R --delete --verbose _book/ "$TARGET_DIR"
+              quit
+              EOF
+          else
+            lftp -u "$USERNAME","$PASSWORD" -p "$PORT" "$PROTOCOL://$HOST" <<'EOF'
+              set ftp:ssl-allow yes
+              set ftp:ssl-force yes
+              set ssl:verify-certificate no
+              set ftp:passive-mode on
+              mirror -R --delete --verbose _book/ "$TARGET_DIR"
+              quit
+              EOF
+          fi
