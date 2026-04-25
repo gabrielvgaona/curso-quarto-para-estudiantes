@@ -29,7 +29,7 @@ jobs:
       
       - name: Install R dependencies
         run: |
-          R -e "install.packages('rmarkdown')"
+          R -e "install.packages(c('rmarkdown', 'gt'))"
         
       - name: Render Quarto site
         run: quarto render
