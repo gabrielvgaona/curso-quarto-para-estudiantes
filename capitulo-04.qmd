@@ -1,0 +1,206 @@
+# Bloques de código en R
+
+## ¿Qué es un bloque de código?
+
+Un bloque de código (en inglés, *code chunk*) es una sección de tu documento `.qmd` que contiene código ejecutable. Cuando renderizas el documento, Quarto ejecuta el código y puede insertar los resultados (texto, tablas, gráficos) directamente en el documento final.
+
+Los bloques de código se delimitan con tres acentos graves y llaves que indican el lenguaje:
+
+````markdown
+```{{r}}
+# Tu código R aquí
+1 + 1
+```
+````
+
+Al renderizar, esto produce:
+
+```{r}
+1 + 1
+```
+
+## Crear un bloque de código
+
+En RStudio puedes crear un bloque de código de tres formas:
+
+1. **Atajo de teclado**: `Ctrl+Alt+I` (Windows/Linux) o `Cmd+Option+I` (macOS).
+2. **Menú**: Code > Insert Chunk.
+3. **Manual**: escribe los delimitadores `` ``` `` directamente.
+
+## Opciones de bloque
+
+Las opciones de bloque controlan cómo se ejecuta y se muestra el código. Se escriben al inicio del bloque con el prefijo `#|`:
+
+````markdown
+```{{r}}
+#| echo: true
+#| eval: true
+#| warning: false
+library(tidyverse)
+```
+````
+
+### Opciones más importantes
+
+| Opción | Valores | Efecto |
+|---|---|---|
+| `echo` | `true` / `false` | ¿Mostrar el código fuente en el documento? |
+| `eval` | `true` / `false` | ¿Ejecutar el código? |
+| `output` | `true` / `false` | ¿Mostrar la salida del código? |
+| `warning` | `true` / `false` | ¿Mostrar advertencias? |
+| `message` | `true` / `false` | ¿Mostrar mensajes? |
+| `fig-cap` | texto | Título de la figura generada |
+| `fig-width` | número | Ancho de la figura (en pulgadas) |
+| `fig-height` | número | Alto de la figura (en pulgadas) |
+| `label` | texto | Etiqueta para referencias cruzadas |
+
+### Ejemplo: ocultar el código `echo: false`
+
+Cuando quieres mostrar solo el resultado (como en un informe profesional):
+
+```{r}
+#| echo: false
+cat("Este resultado aparece sin mostrar el código que lo generó.")
+```
+
+### Ejemplo: mostrar código sin ejecutar `eval: false`
+
+Útil para mostrar una instrucción de instalación:
+
+```{r}
+#| eval: false
+install.packages("nombrePaquete")
+```
+
+## Código inline
+
+Puedes insertar resultados de R directamente dentro del texto usando un acento grave (backtick `` ` ``), luego `{r}`, luego tu expresión de R, y otro acento grave para cerrar. Esto es útil para reportar valores calculados.
+
+Por ejemplo, si escribes en tu archivo `.qmd`:
+
+```` markdown
+```{{r}}
+pendiente <- 5 # en grados
+```
+
+La pendiente del cauce es `{{r}} round(pendiente/45 * 100, 1)` %.
+````
+
+El resultado será: La pendiente del cauce es `r round(5/45 * 100, 1)` %.
+
+## Ejemplo práctico: cargar y explorar datos
+
+Vamos a trabajar con un dataset de ejemplo que simula mediciones hidrológicas. Sigue los siguientes pasos para que puedas entender el proceso
+
+1. Asegúrate de cumplir estos requisitos:
+    - [ ] Tienes una carpeta de `datos`
+    - [ ] En la carpeta de datos tienes el fichero `ejemplo-hidro.csv`.
+2. Crea un nuevo documento de Quarto con las siguientes condiciones:
+    - [ ] Título: "Ejemplo práctico de cargar y explorar datos"
+    - [ ] Autor: tu nombre
+    - [ ] Tipo de documento: html
+3. Reemplaza el contenido del documento de Quarto, sin cambiar el encabezado por el siguiente contenido
+
+    ```` markdown
+    ```{{r}}
+    #| message: false
+    #| warning: false
+    library(tidyverse)
+    ```
+    
+    ## Cargar y explorar datos
+    
+    Cargando datos desde `datos/ejemplo-hidro.csv`
+    
+    ```{{r}}
+    #| message: false
+    datos <- read_csv("datos/ejemplo-hidro.csv")
+    head(datos)
+    ```
+    
+    Aquí tienes un resumen breve de los datos
+    
+    ```{{r}}
+    summary(datos)
+    ```
+    ````
+4. Presiona el botón de render y verás una página web con un análisis rápido de los datos con algo parecido a lo se ve a continuación:
+
+```{r}
+#| message: false
+#| warning: false
+library(tidyverse)
+```
+
+```{r}
+#| message: false
+datos <- read_csv("datos/ejemplo-hidro.csv")
+head(datos)
+```
+
+```{r}
+summary(datos)
+```
+
+## Crear un gráfico básico
+
+En Quarto también puedes generar gráficos mediante código, si es necesario. Para completar el ejermplo práctico anterior, puedes agregar un bloque de código adicional donde se cree un gráfico a partir de los datos (copia y pega el siguiente contenido al final del documento):
+
+````markdown
+```{{r}}
+#| label: fig-caudal-mensual
+#| fig-cap: "Caudal medio mensual en la estación de ejemplo"
+#| fig-width: 7
+#| fig-height: 4
+ggplot(datos, aes(x = fecha, y = caudal_m3s)) +
+  geom_line() +
+  labs(
+    x = "Fecha",
+    y = "Caudal (m³/s)"
+  )
+```
+````
+... luego presiona el botón de [Render] y mira el resultado.
+
+```{r}
+#| label: fig-caudal-mensual
+#| fig-cap: "Caudal medio mensual en la estación de ejemplo"
+#| fig-width: 7
+#| fig-height: 4
+#| echo: false
+ggplot(datos, aes(x = fecha, y = caudal_m3s)) +
+  geom_line() +
+  labs(
+    x = "Fecha",
+    y = "Caudal (m³/s)"
+  )
+```
+
+Observa cómo el gráfico se genera automáticamente a partir de los datos. Si los datos cambian, el gráfico se actualiza al renderizar de nuevo.
+
+## Opciones globales
+
+Puedes establecer opciones predeterminadas para **todos** los bloques de código del documento en el encabezado YAML:
+
+```yaml
+---
+title: "Mi informe"
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+```
+
+Esto evita repetir las mismas opciones en cada bloque.
+
+## Actividad autónoma
+
+Crea un documento Quarto que:
+
+1. Cargue el archivo `datos/ejemplo-hidro.csv` (o cualquier dataset en formato CSV que tengas disponible).
+2. Muestre las **primeras filas** del dataset.
+3. Calcule una **estadística descriptiva** (media, mediana o desviación estándar) de una variable numérica.
+4. Reporte esa estadística en el texto usando **código inline** (por ejemplo: "El caudal promedio fue de X m³/s").
+5. Genere un **gráfico** con `ggplot2` que muestre la distribución o tendencia de una variable.
+6. Incluya al menos un bloque con `echo: false` (solo resultado) y otro con `echo: true` (código visible).
