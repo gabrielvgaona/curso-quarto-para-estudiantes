@@ -1,0 +1,206 @@
+# Proyecto integrador grupal
+
+## Descripción
+
+Este proyecto es la actividad final del curso. Trabajarás en equipo (3-4 estudiantes) para crear un **informe técnico completo** usando Quarto, aplicando todo lo aprendido durante las dos semanas. El equipo colaborará a través de un repositorio compartido en GitHub.
+
+El informe debe abordar un tema relacionado con tu carrera, utilizando datos reales o simulados.
+
+## Objetivos
+
+Al completar este proyecto, tu equipo habrá demostrado la capacidad de:
+
+1. Escribir un documento técnico con Markdown (texto formateado, ecuaciones, callouts).
+2. Incluir bloques de código en R que procesan datos y generan resultados.
+3. Crear figuras y tablas con referencias cruzadas.
+4. Citar fuentes bibliográficas correctamente.
+5. Generar el documento en múltiples formatos.
+6. Colaborar usando Git y GitHub.
+
+## Requisitos del informe
+
+El informe debe contener:
+
+### Estructura
+
+- [ ] **Título** descriptivo del análisis
+- [ ] **Autores** (todos los miembros del equipo) con afiliación: Universidad Regional Amazónica Ikiam
+- [ ] **Resumen** (abstract): 100-200 palabras describiendo el objetivo, datos y conclusiones principales
+- [ ] **Introducción**: contexto del problema y objetivo del análisis (mínimo 2 párrafos)
+- [ ] **Datos y métodos**: descripción del dataset y del análisis realizado
+- [ ] **Resultados**: presentación de figuras y tablas con descripción
+- [ ] **Conclusiones**: hallazgos principales (mínimo 1 párrafo)
+- [ ] **Referencias**: lista generada automáticamente
+
+### Contenido técnico
+
+- [ ] Al menos **1 bloque de código** que cargue y procese datos
+- [ ] Al menos **2 figuras** generadas con código, con etiquetas y títulos (`fig-cap`)
+- [ ] Al menos **1 tabla** generada con código, con etiqueta y título (`tbl-cap`)
+- [ ] **Referencias cruzadas** en el texto para todas las figuras y tablas (`@fig-...`, `@tbl-...`)
+- [ ] Al menos **1 ecuación** relevante al tema, referenciada en el texto
+- [ ] Al menos **3 citas bibliográficas** de fuentes reales
+- [ ] Uso de al menos **1 callout** (nota, consejo o advertencia)
+
+### Formato
+
+- [ ] Renderizado exitosamente en al menos **2 formatos** (HTML + PDF o HTML + Word)
+- [ ] Tabla de contenidos habilitada
+- [ ] Secciones numeradas
+
+### Colaboración
+
+- [ ] Repositorio en **GitHub** con todos los miembros como colaboradores
+- [ ] **Historial de commits** que muestre contribuciones de todos los miembros
+- [ ] Mensajes de commit descriptivos
+- [ ] Archivo `.gitignore` configurado
+
+## Temáticas sugeridas
+
+Elige un tema relacionado con tu carrera. Aquí hay algunas ideas:
+
+### Hidrología
+
+- Análisis de la variación estacional de caudales en un río amazónico.
+- Relación entre precipitación y temperatura en la región de Tena.
+- Análisis de frecuencia de crecidas usando datos históricos.
+- Evaluación de calidad de agua en puntos de monitoreo.
+
+### Electromecánica
+
+- Análisis de datos de sensores de temperatura/humedad de un sistema de monitoreo.
+- Caracterización de consumo eléctrico en un edificio de la universidad.
+- Comparación de eficiencia entre dos tipos de motores.
+- Análisis de señales de vibración en maquinaria.
+
+### Geociencias
+
+- Distribución espacial de sismos en el Ecuador usando datos del IGEPN.
+- Análisis de datos geoquímicos de muestras de suelo.
+- Caracterización de un perfil geológico con datos de campo.
+- Variación temporal de actividad volcánica usando catálogos sísmicos.
+
+::: {.callout-tip}
+## Datos disponibles
+Puedes usar datos públicos de:
+
+- **INAMHI** (Instituto Nacional de Meteorología e Hidrología): datos de estaciones meteorológicas.
+- **IGEPN** (Instituto Geofísico de la Escuela Politécnica Nacional): catálogos sísmicos.
+- **INEC** (Instituto Nacional de Estadística y Censos): datos socioeconómicos.
+- Repositorios de datos abiertos como [data.gob.ec](https://www.datosabiertos.gob.ec/).
+- Datos de laboratorio o campo que hayas recolectado en otras materias.
+:::
+
+## Cronograma del proyecto
+
+| Momento | Actividad |
+|---|---|
+| **Día 9 — Sesión** | Formación de equipos. Elección de tema. Creación del repositorio en GitHub. Distribución de tareas. |
+| **Día 9 — Autónomo** | Cada miembro trabaja en su sección asignada. Buscar datos y referencias. |
+| **Día 10 — Sesión** | Integración final del documento. Resolución de problemas. Presentación breve (5 min por equipo). |
+| **Día 10 — Autónomo** | Ajustes finales. Renderizado en formatos requeridos. Entrega del repositorio. |
+
+## Distribución sugerida del trabajo
+
+Para un equipo de 4 personas:
+
+| Miembro | Responsabilidad |
+|---|---|
+| Persona 1 | Configuración del proyecto (YAML, `.bib`, GitHub). Introducción. |
+| Persona 2 | Carga y procesamiento de datos. Sección de métodos. |
+| Persona 3 | Figuras y visualizaciones. Sección de resultados. |
+| Persona 4 | Tablas, ecuaciones y conclusiones. Revisión final. |
+
+::: {.callout-important}
+## Todos contribuyen
+El historial de commits de GitHub debe mostrar contribuciones de **todos** los miembros del equipo. Si una persona hace todos los commits, eso indica que no hubo trabajo colaborativo real.
+:::
+
+## Rúbrica de evaluación
+
+| Criterio | Peso | Descripción |
+|---|:---:|---|
+| **Contenido técnico** | 30% | Figuras, tablas, ecuaciones, código funcional, referencias cruzadas |
+| **Redacción y estructura** | 20% | Claridad del texto, organización lógica, resumen, conclusiones |
+| **Bibliografía** | 15% | Citas correctas, al menos 3 fuentes reales, lista generada automáticamente |
+| **Formatos de salida** | 10% | Renderizado correcto en al menos 2 formatos |
+| **Colaboración (Git)** | 15% | Commits de todos los miembros, mensajes descriptivos, repo organizado |
+| **Presentación** | 10% | Presentación clara y breve (5 min), todos los miembros participan |
+
+## Plantilla inicial
+
+Para ayudarte a empezar, aquí tienes una estructura base para el archivo principal del informe:
+
+````markdown
+---
+title: "Título de tu informe"
+author:
+  - name: "Nombre Estudiante 1"
+    affiliation: "Universidad Regional Amazónica Ikiam"
+  - name: "Nombre Estudiante 2"
+    affiliation: "Universidad Regional Amazónica Ikiam"
+  - name: "Nombre Estudiante 3"
+    affiliation: "Universidad Regional Amazónica Ikiam"
+date: today
+date-format: "D MMMM YYYY"
+lang: es
+bibliography: referencias.bib
+format:
+  html:
+    toc: true
+    number-sections: true
+  pdf:
+    toc: true
+    number-sections: true
+    papersize: a4
+    geometry:
+      - margin=2.5cm
+---
+
+## Resumen
+
+Escribe aquí el resumen del informe (100-200 palabras).
+
+## Introducción
+
+Contexto del problema y objetivo del análisis.
+
+## Datos y métodos
+
+Descripción del dataset y la metodología.
+
+```{{r}}
+#| message: false
+library(tidyverse)
+datos <- read_csv("datos/tu-archivo.csv")
+```
+
+## Resultados
+
+Presenta tus figuras y tablas aquí.
+
+```{{r}}
+#| label: fig-ejemplo
+#| fig-cap: "Descripción de la figura"
+ggplot(datos, aes(x = variable_x, y = variable_y)) +
+  geom_point()
+```
+
+Como se muestra en la @fig-ejemplo, ...
+
+## Conclusiones
+
+Hallazgos principales del análisis.
+
+## Referencias
+````
+
+## Entrega
+
+La entrega consiste en compartir la **URL del repositorio de GitHub** con el instructor. El repositorio debe contener:
+
+1. El archivo `.qmd` del informe.
+2. El archivo `referencias.bib`.
+3. Los datos usados (si son ligeros) o instrucciones de cómo obtenerlos.
+4. Los documentos renderizados (HTML y/o PDF).
+5. Un historial de commits que refleje el trabajo del equipo.
