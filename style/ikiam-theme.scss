@@ -1,0 +1,38 @@
+/*-- scss:defaults --*/
+
+// Colores institucionales de la Universidad Regional Amazónica Ikiam
+// Extraídos de https://www.ikiam.edu.ec
+$primary:          #046BD2;
+$link-color:       #046BD2;
+$link-hover-color: #045CB4;
+$body-color:       #334155;
+$headings-color:   #1E293B;
+$body-bg:          #FFFFFF;
+$light:            #F0F5FA;
+$border-color:     #D1D5DB;
+
+// Tipografías institucionales
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap');
+
+$font-family-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+$headings-font-family:   "Poppins", sans-serif;
+
+/*-- scss:rules --*/
+
+// Sidebar
+.sidebar-title {
+  color: $primary;
+  font-family: $headings-font-family;
+}
+
+// Callouts con fondo alternativo
+.callout {
+  border-left-width: 4px;
+}
+
+// Código con fondo sutil
+pre.sourceCode {
+  background-color: $light;
+  border: 1px solid $border-color;
+  border-radius: 6px;
+}

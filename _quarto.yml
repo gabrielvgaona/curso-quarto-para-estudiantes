@@ -1,0 +1,51 @@
+project:
+  type: book
+
+book:
+  title: "Escribe tus informes con Quarto y R"
+  subtitle: "Curso básico de Quarto"
+  author: 
+    - name: "Gabriel Gaona"
+      affiliation: "Laboratorio de Servicios Hidrometeorológicos. Universidad Regional Amazónica Ikiam"
+  date: today
+  date-format: "D MMMM YYYY"
+  favicon: img/logo-ikiam.png
+  repo-url: https://github.com/gabrielvgaona/curso-quarto-para-estudiantes
+  repo-actions: [issue]
+  chapters:
+    - index.qmd
+    - part: "Fundamentos"
+      chapters:
+        - capitulo-01.qmd
+        - capitulo-02.qmd
+        - capitulo-03.qmd
+    - part: "Contenido técnico"
+      chapters:
+        - capitulo-04.qmd
+        - capitulo-05.qmd
+        - capitulo-06.qmd
+        - capitulo-07.qmd
+    - part: "Colaboración y proyecto"
+      chapters:
+        - capitulo-08.qmd
+        - capitulo-09.qmd
+
+bibliography: referencias.bib
+lang: es
+
+format:
+  html:
+    theme:
+      - cosmo
+      - style/ikiam-theme.scss
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-tools: true
+    code-copy: true
+    highlight-style: github
+    link-external-icon: true
+    link-external-newwindow: true
+
+sidebar:
+  logo: img/logo-ikiam.png
