@@ -1,0 +1,233 @@
+# Git y GitHub para trabajo colaborativo
+
+## ¿Por qué control de versiones?
+
+Seguramente has tenido archivos con nombres como:
+
+```
+informe_final.docx
+informe_final_v2.docx
+informe_final_v2_corregido.docx
+informe_final_DEFINITIVO.docx
+informe_final_DEFINITIVO_ahora_si.docx
+```
+
+Esto es un sistema de "control de versiones" manual, y tiene problemas evidentes:
+
+- No sabes exactamente **qué cambió** entre versiones.
+- Cuando trabajan varias personas, hay **conflictos** al combinar cambios.
+- Es difícil **volver atrás** a una versión anterior específica.
+
+**Git** resuelve estos problemas. Es un sistema de control de versiones que registra cada cambio que haces en tus archivos, quién lo hizo, cuándo y por qué.
+
+**GitHub** es una plataforma en la nube que almacena tus repositorios Git y facilita la colaboración con otros.
+
+## Instalar y configurar Git
+
+### Instalación
+
+- **Windows**: descarga desde [git-scm.com](https://git-scm.com/download/win).
+- **macOS**: ejecuta `xcode-select --install` en la Terminal, o descarga desde [git-scm.com](https://git-scm.com/download/mac).
+- **Linux (Ubuntu/Debian)**: ejecuta `sudo apt install git` en la terminal.
+
+### Configuración inicial
+
+Abre la **Terminal** de RStudio y ejecuta estos comandos (reemplaza con tus datos):
+
+```bash
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu.correo@ikiam.edu.ec"
+```
+
+Esto le dice a Git quién eres, para que cada cambio que registres quede asociado a tu nombre.
+
+### Verificar la configuración
+
+```bash
+git config --list
+```
+
+## Conceptos fundamentales
+
+### Repositorio
+
+Un **repositorio** (o *repo*) es una carpeta cuyo historial de cambios está rastreado por Git. Tu proyecto de Quarto será un repositorio.
+
+### Los tres estados de Git
+
+Git maneja tus archivos en tres áreas:
+
+```{mermaid}
+%%| label: fig-git-areas
+%%| fig-cap: "Las tres áreas de Git"
+flowchart LR
+    A["Directorio de trabajo<br>(tus archivos)"] -->|git add| B["Área de preparación<br>(staging area)"]
+    B -->|git commit| C["Repositorio<br>(historial)"]
+    C -->|git push| D["GitHub<br>(remoto)"]
+```
+
+1. **Directorio de trabajo**: tus archivos tal como los ves en tu computadora.
+2. **Área de preparación** (*staging area*): los cambios que seleccionaste para el siguiente commit.
+3. **Repositorio**: el historial permanente de cambios (commits).
+
+### Commit
+
+Un **commit** es una "foto" del estado de tus archivos en un momento dado. Cada commit tiene:
+
+- Un **mensaje** que describe qué cambiaste.
+- Un **autor** (tú).
+- Una **fecha y hora**.
+- Un **identificador único** (hash).
+
+### Push y pull
+
+- **Push**: enviar tus commits locales a GitHub (subir cambios).
+- **Pull**: traer los commits de GitHub a tu computadora (descargar cambios de tus compañeros).
+
+## Crear una cuenta en GitHub
+
+1. Ve a [github.com](https://github.com) y crea una cuenta gratuita.
+2. Usa tu correo institucional de Ikiam si es posible.
+3. Opcionalmente, solicita el [GitHub Student Developer Pack](https://education.github.com/pack) para obtener beneficios adicionales.
+
+## Flujo de trabajo con RStudio
+
+RStudio tiene integración nativa con Git. No necesitas usar la terminal para las operaciones básicas.
+
+### Crear un nuevo proyecto con Git
+
+1. **File > New Project... > New Directory > Quarto Project**.
+2. Marca la casilla **"Create a git repository"**.
+3. Dale un nombre y elige la ubicación.
+
+### Conectar con GitHub
+
+Desde la Terminal de RStudio:
+
+```bash
+# Crear el repositorio en GitHub primero (desde github.com)
+# Luego conectar tu proyecto local:
+git remote add origin https://github.com/tu-usuario/tu-repositorio.git
+git branch -M main
+git push -u origin main
+```
+
+::: {.callout-tip}
+## Alternativa más sencilla
+Si prefieres evitar la terminal, puedes crear el repositorio directamente en GitHub y luego clonarlo en RStudio: **File > New Project... > Version Control > Git** y pegar la URL del repositorio.
+:::
+
+### El flujo diario
+
+Una vez configurado, tu flujo de trabajo diario es:
+
+1. **Pull** — antes de empezar a trabajar, descarga los últimos cambios.
+2. **Editar** — trabaja en tus archivos `.qmd` normalmente.
+3. **Stage** — selecciona los archivos modificados en el panel Git de RStudio.
+4. **Commit** — escribe un mensaje descriptivo y confirma los cambios.
+5. **Push** — sube tus cambios a GitHub.
+
+### El panel Git de RStudio
+
+En RStudio, el panel **Git** (generalmente en la esquina superior derecha) muestra:
+
+- Archivos **modificados** (ícono azul [M]{style="background-color: #6585d3; color: white; padding: 0em 0.1em 0em 0.1em; border-radius: 2px;"}).
+- Archivos **nuevos** (ícono verde [?]{style="background-color: #e9ce56; color: white; padding: 0em 0.3em 0em 0.3em; border-radius: 2px;"}).
+- Archivos **eliminados** (ícono rojo [D]{style="background-color: #d2502d; color: white; padding: 0em 0.1em 0em 0.1em; border-radius: 2px;"}).
+
+Para hacer un commit:
+
+1. Marca las casillas de los archivos que quieres incluir (stage).
+2. Haz clic en **Commit**.
+3. Escribe un **mensaje descriptivo** (ver sección siguiente).
+4. Haz clic en **Commit**, luego en **Push**.
+
+## Escribir buenos mensajes de commit
+
+Un buen mensaje de commit es breve pero informativo:
+
+| ✗ Mal | ✓ Bien |
+|---|---|
+| "cambios" | "Agregar gráfico de caudal mensual al cap. 3" |
+| "actualización" | "Corregir ecuación de Manning en la sección 2.1" |
+| "fix" | "Arreglar error en la lectura del CSV de temperatura" |
+| "asdfgh" | "Agregar referencias bibliográficas de hidrología" |
+
+## Colaborar en un repositorio compartido
+
+Para el proyecto integrador, trabajarán en equipo en un mismo repositorio.
+
+### Configuración del equipo
+
+1. **Un miembro** del equipo crea el repositorio en GitHub.
+2. Va a **Settings > Collaborators** y agrega a los demás miembros por su nombre de usuario de GitHub.
+3. Cada miembro **clona** el repositorio en su computadora.
+
+### Evitar conflictos
+
+La estrategia más simple para evitar conflictos cuando trabajan varias personas:
+
+1. **Comunicarse** antes de editar: "Yo voy a trabajar en el capítulo de resultados."
+2. **Dividir el trabajo** por archivos: cada persona trabaja en secciones diferentes.
+3. **Pull antes de push**: siempre descargar los últimos cambios antes de subir los tuyos.
+4. **Commits pequeños y frecuentes**: es más fácil resolver conflictos en cambios pequeños.
+
+### ¿Qué pasa si hay un conflicto?
+
+Un conflicto ocurre cuando dos personas modifican la **misma línea** del mismo archivo. Git marca la zona conflictiva así:
+
+```
+<<<<<<< HEAD
+Tu versión del texto
+=======
+La versión de tu compañero
+>>>>>>> origin/main
+```
+
+Para resolverlo:
+
+1. Abre el archivo en conflicto.
+2. Decide qué versión conservar (o combínalas).
+3. Elimina las marcas de conflicto (`<<<<<<<`, `=======`, `>>>>>>>`).
+4. Guarda, haz commit y push.
+
+::: {.callout-tip}
+## La mejor solución es prevenir
+Si cada miembro trabaja en archivos distintos, los conflictos son raros. Divídanse el trabajo claramente.
+:::
+
+## El archivo `.gitignore`
+
+Hay archivos que **no deberían** subirse a GitHub: archivos temporales, datos muy grandes, credenciales, etc. El archivo `.gitignore` le dice a Git qué ignorar:
+
+```
+# Archivos generados por Quarto
+_site/
+_freeze/
+.quarto/
+
+# Archivos de RStudio
+.Rproj.user/
+.Rhistory
+.RData
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+```
+
+RStudio crea un `.gitignore` básico automáticamente al crear un proyecto con Git.
+
+## Actividad autónoma
+
+1. Si no lo has hecho, **crea tu cuenta** en [GitHub](https://github.com).
+2. Crea un **nuevo repositorio** en GitHub (público, con README).
+3. **Clónalo** en RStudio: File > New Project > Version Control > Git.
+4. Crea un archivo `prueba.qmd` con un título, tu nombre y un párrafo breve.
+5. **Renderiza** el documento.
+6. Haz **al menos 3 commits** con mensajes descriptivos:
+   - Commit 1: "Crear documento inicial"
+   - Commit 2: (agrega contenido)
+   - Commit 3: (modifica algo)
+7. **Push** tus cambios a GitHub.
+8. Verifica en GitHub que tus archivos y el historial de commits aparecen correctamente.
