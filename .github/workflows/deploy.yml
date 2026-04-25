@@ -25,7 +25,7 @@ jobs:
       - name: Install Quarto CLI
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          install: true
+          tinytex: true
         
       - name: Render Quarto site
         run: quarto render
