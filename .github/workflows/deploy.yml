@@ -10,7 +10,7 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     container:
-      image: rocker/r2u:latest
+      image: rocker/verse:latest
 
     steps:
       - name: Checkout repository
