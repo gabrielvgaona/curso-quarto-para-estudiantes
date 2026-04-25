@@ -26,6 +26,10 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           tinytex: true
+      
+      - name: Install R dependencies
+        run: |
+          R -e "install.packages('rmarkdown')"
         
       - name: Render Quarto site
         run: quarto render
@@ -39,9 +43,6 @@ jobs:
           CPANEL_PROTOCOL: ${{ secrets.CPANEL_PROTOCOL }}
           CPANEL_PORT: ${{ secrets.CPANEL_PORT }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y lftp
-
           HOST="$CPANEL_HOST"
           USERNAME="$CPANEL_USERNAME"
           PASSWORD="$CPANEL_PASSWORD"
