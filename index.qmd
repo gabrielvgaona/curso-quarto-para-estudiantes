@@ -25,7 +25,7 @@ Al completar este curso podrás:
 
 El curso se desarrolla durante **2 semanas** (10 días hábiles) con sesiones virtuales de 1 hora diaria y actividades autónomas de al menos 1 hora diaria.
 
-| Día | Sesión sincrónica (1h) | Trabajo autónomo (1h) |
+| Día | Sesión sincrónica (1h) | Trabajo autónomo (3h) |
 |:---:|------------------------|----------------------|
 | 1 | ¿Qué es Quarto y por qué usarlo? | Explorar la Quarto Gallery |
 | 2 | Instalación y configuración | Ejercicio "Hola Quarto" |
@@ -53,5 +53,5 @@ Antes de la primera sesión, asegúrate de tener:
 | Componente | Horas |
 |---|---|
 | Sesiones sincrónicas | 10 h |
-| Trabajo autónomo | 10 h |
-| **Total** | **20 h** |
+| Trabajo autónomo | 30 h |
+| **Total** | **40 h** |
