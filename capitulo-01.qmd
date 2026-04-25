@@ -1,0 +1,109 @@
+# ¿Qué es Quarto y por qué usarlo?
+
+## El problema: documentos que no se reproducen
+
+Imagina que terminas un informe de laboratorio en Word. Incluyes gráficos que generaste en R, tablas que copiaste desde Excel y citas que escribiste a mano. Semanas después, tu profesor te pide que actualices los datos. ¿Qué haces?
+
+- Vuelves a ejecutar el código en R.
+- Copias las nuevas figuras al documento.
+- Ajustas las tablas manualmente.
+- Revisas que las citas sigan siendo correctas.
+
+Este proceso es **tedioso, propenso a errores y difícil de auditar**. No hay forma de saber si las figuras del documento corresponden realmente al código que ejecutaste.
+
+## La solución: documentos reproducibles
+
+Un **documento reproducible** combina texto, código y resultados en un solo archivo. Cuando lo "renderizas" (compilas), el código se ejecuta automáticamente y los resultados se insertan en el documento final. Si los datos cambian, simplemente vuelves a renderizar.
+
+```{mermaid}
+%%| label: fig-flujo-quarto
+%%| fig-cap: "Flujo de trabajo con Quarto"
+flowchart LR
+    A[".qmd<br>(texto + código)"] --> B["Quarto<br>(motor)"]
+    B --> C["HTML"]
+    B --> D["PDF"]
+    B --> E["Word"]
+```
+
+## ¿Qué es Quarto?
+
+[Quarto](https://quarto.org) es un sistema de publicación científica y técnica de código abierto, desarrollado por [Posit](https://posit.co) (la misma empresa detrás de RStudio). Permite crear:
+
+- **Documentos** (informes, tareas, tesis)
+- **Presentaciones** (diapositivas)
+- **Sitios web** y blogs
+- **Libros** (como este curso)
+
+Quarto usa archivos con extensión `.qmd` (Quarto Markdown), que combinan:
+
+1. **Encabezado YAML** — metadatos del documento (título, autor, formato).
+2. **Texto en Markdown** — contenido con formato (negritas, listas, ecuaciones).
+3. **Bloques de código** — código en R, Python u otros lenguajes que se ejecuta al renderizar.
+
+## ¿Por qué Quarto y no Word?
+
+| Característica | Word | Quarto |
+|---|---|---|
+| Resultados reproducibles | No | Sí |
+| Código integrado en el documento | No | Sí |
+| Control de versiones (Git) | Difícil | Natural |
+| Citas bibliográficas automáticas | Parcial | Completo |
+| Múltiples formatos de salida | No | Sí (HTML, PDF, Word) |
+| Ecuaciones con LaTeX | Limitado | Completo |
+| Gratuito y de código abierto | No | Sí |
+
+::: {.callout-note}
+## Word no es el enemigo
+Word es una herramienta útil para muchas tareas. Quarto es especialmente valioso cuando tu documento incluye **código, datos y resultados** que necesitan ser reproducibles.
+:::
+
+## Casos de uso en tus carreras
+
+### Hidrología
+- Informes de análisis de caudales con gráficos generados directamente desde los datos.
+- Reportes de calidad de agua con tablas actualizables.
+
+### Electromecánica
+- Documentación de mediciones de sensores con código que procesa las señales.
+- Informes de laboratorio con cálculos automáticos.
+
+### Geociencias
+- Análisis de datos sísmicos con visualizaciones reproducibles.
+- Reportes de campo con mapas generados desde coordenadas.
+
+### Tesis de grado
+Quarto es ideal para tu tesis: puedes escribir todo el documento (texto, figuras, tablas, citas) en un solo archivo que siempre está sincronizado con tus datos y análisis.
+
+## Ejemplo: un documento `.qmd` mínimo
+
+Así se ve un archivo Quarto en su forma más simple:
+
+````markdown
+---
+title: "Mi primer informe"
+author: "Tu nombre"
+format: html
+---
+
+## Introducción
+
+Este es un informe de ejemplo. Los datos muestran que la temperatura
+promedio fue de `{r} mean(c(22, 24, 21, 23))` °C.
+
+## Gráfico
+
+```{{r}}
+plot(1:10, rnorm(10), type = "b", main = "Datos de ejemplo")
+```
+````
+
+Al renderizar este archivo, Quarto ejecuta el código R y genera un documento HTML con el texto, el resultado del cálculo inline y el gráfico insertado automáticamente.
+
+## Actividad autónoma
+
+1. Visita la [Quarto Gallery](https://quarto.org/docs/gallery/) y explora los ejemplos disponibles.
+2. Elige **un ejemplo** que te parezca útil para tu carrera.
+3. Escribe un párrafo breve (3-5 oraciones) explicando:
+   - ¿Qué ejemplo elegiste?
+   - ¿Por qué te parece relevante para tu área de estudio?
+   - ¿Qué elemento del ejemplo te gustaría aprender a hacer?
