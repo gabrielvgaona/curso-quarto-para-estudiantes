@@ -1,0 +1,152 @@
+# Instalación y configuración
+
+## Lo que necesitas instalar
+
+Para trabajar con Quarto necesitas tres herramientas:
+
+1. **R** — el lenguaje de programación que usaremos para análisis de datos.
+2. **RStudio** — el entorno de desarrollo donde escribirás tus documentos.
+3. **Quarto** — el motor que convierte tus archivos `.qmd` en documentos finales.
+
+::: {.callout-tip}
+## ¿Ya tienes R y RStudio?
+Si ya tienes R y RStudio instalados, solo necesitas verificar que tengas versiones recientes y luego instalar Quarto.
+:::
+
+## Paso 1: Instalar R
+
+1. Ve a [https://cran.r-project.org/](https://cran.r-project.org/).
+2. Selecciona tu sistema operativo (Windows, macOS o Linux).
+3. Descarga e instala la versión más reciente (4.3 o superior).
+
+### Verificar la instalación
+
+Abre una terminal o consola y ejecuta:
+
+```bash
+R --version
+```
+
+Deberías ver algo como: `R version 4.4.x`.
+
+## Paso 2: Instalar RStudio
+
+1. Ve a [https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/).
+2. Descarga la versión gratuita de RStudio Desktop para tu sistema operativo.
+3. Instálalo siguiendo las instrucciones del instalador.
+
+## Paso 3: Instalar Quarto
+
+1. Ve a [https://quarto.org/docs/get-started/](https://quarto.org/docs/get-started/).
+2. Descarga el instalador para tu sistema operativo.
+3. Ejecuta el instalador.
+
+### Verificar la instalación
+
+En la **Terminal** de RStudio (no la consola de R), ejecuta:
+
+```bash
+quarto --version
+```
+
+Deberías ver un número de versión como `1.6.x` o superior.
+
+::: {.callout-important}
+## Terminal vs. Consola
+RStudio tiene dos paneles de línea de comandos:
+
+- **Consola** (Console): ejecuta código R. El prompt es `>`.
+- **Terminal** (Terminal): ejecuta comandos del sistema. El prompt es `$` o `>` dependiendo del sistema.
+
+Los comandos `quarto --version` y `R --version` van en la **Terminal**, no en la Consola.
+:::
+
+## Paso 4: Instalar paquetes de R necesarios
+
+Abre RStudio y ejecuta en la **Consola de R**:
+
+```{r}
+#| eval: false
+install.packages(c("tidyverse", "knitr", "gt", "tinytex"))
+```
+
+Estos paquetes se usarán a lo largo del curso:
+
+| Paquete | Uso |
+|---|---|
+| `tidyverse` | Manipulación de datos y visualización con ggplot2 |
+| `knitr` | Generar tablas y procesar bloques de código |
+| `gt` | Crear tablas con formato profesional |
+| `tinytex` | Generar documentos PDF (instala una versión ligera de LaTeX) |
+
+Para instalar TinyTeX (necesario para generar PDFs), ejecuta además:
+
+```{r}
+#| eval: false
+tinytex::install_tinytex()
+```
+
+## Tu primer documento Quarto
+
+### Crear el archivo
+
+1. En RStudio, ve a **File > New File > Quarto Document...**
+2. Escribe un título (por ejemplo, "Hola Quarto") y tu nombre.
+3. Selecciona **HTML** como formato de salida.
+4. Haz clic en **Create**.
+
+RStudio creará un archivo `.qmd` con contenido de ejemplo.
+
+### Renderizar el documento
+
+Hay tres formas de renderizar:
+
+1. **Botón Render**: haz clic en el botón {{< kbd Render >}} en la barra de herramientas del editor.
+2. **Atajo de teclado**: presiona `Ctrl+Shift+K` (Windows/Linux) o `Cmd+Shift+K` (macOS).
+3. **Terminal**: ejecuta `quarto render mi-archivo.qmd`.
+
+Al renderizar, Quarto:
+
+1. Lee el archivo `.qmd`.
+2. Ejecuta los bloques de código.
+3. Combina texto y resultados.
+4. Genera el documento final (HTML en este caso).
+
+El resultado se abrirá automáticamente en el visor de RStudio o en tu navegador.
+
+### Anatomía del archivo generado
+
+```yaml
+---
+title: "Hola Quarto"
+author: "Tu nombre"
+format: html
+---
+```
+
+Este bloque entre `---` es el **encabezado YAML** (se pronuncia "yáml"). Define los metadatos del documento. Debajo del encabezado va el contenido en Markdown y los bloques de código.
+
+## El modo visual de RStudio
+
+RStudio ofrece dos modos para editar archivos `.qmd`:
+
+- **Source** (Código fuente): ves el Markdown crudo, exactamente como lo escribes.
+- **Visual** (Visual): ves una vista previa con formato, similar a un procesador de texto.
+
+Puedes alternar entre ambos con el botón **Source/Visual** en la esquina superior izquierda del editor. Ambos modos editan el mismo archivo; es solo una diferencia de presentación.
+
+::: {.callout-tip}
+## Recomendación
+Empieza con el modo **Visual** si el Markdown te resulta nuevo. Conforme te sientas cómodo, prueba el modo **Source** para tener control total del formato.
+:::
+
+## Actividad autónoma
+
+1. Completa la instalación de R, RStudio, Quarto y los paquetes de R si aún no lo has hecho.
+2. Crea un nuevo documento Quarto con:
+   - Título: "Hola Quarto"
+   - Tu nombre como autor
+   - Formato HTML
+3. Modifica el contenido: escribe un párrafo sobre tu carrera en Ikiam.
+4. Renderiza el documento y verifica que se genera correctamente.
+5. Cambia el formato de `html` a `docx` en el encabezado YAML y renderiza de nuevo. ¿Qué diferencias notas?
