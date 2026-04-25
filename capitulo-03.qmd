@@ -1,0 +1,234 @@
+# Markdown: texto con formato
+
+## ¿Qué es Markdown?
+
+Markdown es un lenguaje de marcado ligero que permite dar formato al texto usando caracteres simples. En lugar de hacer clic en botones como en Word, escribes símbolos que indican el formato deseado. Por ejemplo, `**negrita**` produce **negrita**.
+
+Quarto usa Markdown como la base para todo el texto de tus documentos.
+
+## Formato básico de texto
+
+### Énfasis
+
+| Sintaxis | Resultado |
+|---|---|
+| `*cursiva*` | *cursiva* |
+| `**negrita**` | **negrita** |
+| `***negrita cursiva***` | ***negrita cursiva*** |
+| `~~tachado~~` | ~~tachado~~ |
+| `` `código` `` | `código` |
+
+### Encabezados
+
+Los encabezados se crean con el símbolo `#`. Más símbolos `#` indican niveles más profundos:
+
+```markdown
+# Encabezado nivel 1
+## Encabezado nivel 2
+### Encabezado nivel 3
+#### Encabezado nivel 4
+```
+
+::: {.callout-note}
+En un documento Quarto, el título principal viene del encabezado YAML (`title:`). Dentro del contenido, empieza con `##` (nivel 2) para las secciones principales.
+:::
+
+### Párrafos y saltos de línea
+
+Para crear un nuevo párrafo, deja una **línea en blanco** entre los bloques de texto. Un simple salto de línea (Enter) no crea un párrafo nuevo.
+
+```markdown
+Este es el primer párrafo.
+
+Este es el segundo párrafo.
+```
+
+## Listas
+
+### Listas sin orden
+
+```markdown
+- Primer elemento
+- Segundo elemento
+  - Sub-elemento
+  - Otro sub-elemento
+- Tercer elemento
+```
+
+Resultado:
+
+- Primer elemento
+- Segundo elemento
+  - Sub-elemento
+  - Otro sub-elemento
+- Tercer elemento
+
+### Listas numeradas
+
+```markdown
+1. Primer paso
+2. Segundo paso
+3. Tercer paso
+```
+
+Resultado:
+
+1. Primer paso
+2. Segundo paso
+3. Tercer paso
+
+## Enlaces e imágenes
+
+### Enlaces
+
+```markdown
+[Texto del enlace](https://www.ikiam.edu.ec)
+```
+
+Resultado: [Texto del enlace](https://www.ikiam.edu.ec)
+
+### Imágenes
+
+```markdown
+![Descripción de la imagen](img/logo-ikiam.png)
+```
+
+![Logo de la Universidad Regional Amazónica Ikiam](img/logo-ikiam.png){width=200}
+
+## Ecuaciones con LaTeX
+
+Esta es una de las características más importantes para estudiantes de carreras técnicas. Quarto soporta ecuaciones matemáticas usando la sintaxis de LaTeX.
+
+### Ecuaciones en línea
+
+Usa un símbolo `$` a cada lado para ecuaciones dentro del texto:
+
+```markdown
+La energía cinética se calcula como $E_k = \frac{1}{2}mv^2$.
+```
+
+Resultado: La energía cinética se calcula como $E_k = \frac{1}{2}mv^2$.
+
+### Ecuaciones en bloque
+
+Usa doble `$$` para ecuaciones centradas en su propia línea:
+
+```markdown
+$$
+Q = A \cdot v = \frac{\pi d^2}{4} \cdot v
+$$
+```
+
+Resultado:
+
+$$
+Q = A \cdot v = \frac{\pi d^2}{4} \cdot v
+$$
+
+### Ecuaciones útiles para tus carreras
+
+**Hidrología** — Ecuación de Manning:
+
+$$
+v = \frac{1}{n} R_h^{2/3} S^{1/2}
+$$ {#eq-manning}
+
+donde $v$ es la velocidad del flujo, $n$ es el coeficiente de rugosidad de Manning, $R_h$ es el radio hidráulico y $S$ es la pendiente de la línea de energía.
+
+**Electromecánica** — Ley de Ohm:
+
+$$
+V = I \cdot R
+$$ {#eq-ohm}
+
+**Geociencias** — Ley de Gutenberg-Richter:
+
+$$
+\log_{10} N = a - bM
+$$ {#eq-gutenberg}
+
+donde $N$ es el número de sismos con magnitud mayor o igual a $M$.
+
+::: {.callout-tip}
+## Referencia rápida de LaTeX
+Algunos símbolos frecuentes:
+
+| Símbolo | LaTeX | Resultado |
+|---|---|---|
+| Fracción | `\frac{a}{b}` | $\frac{a}{b}$ |
+| Raíz cuadrada | `\sqrt{x}` | $\sqrt{x}$ |
+| Subíndice | `x_i` | $x_i$ |
+| Superíndice | `x^2` | $x^2$ |
+| Sumatoria | `\sum_{i=1}^{n}` | $\sum_{i=1}^{n}$ |
+| Integral | `\int_a^b` | $\int_a^b$ |
+| Letras griegas | `\alpha, \beta, \gamma` | $\alpha, \beta, \gamma$ |
+| Mayor o igual | `\geq` | $\geq$ |
+| Aproximado | `\approx` | $\approx$ |
+:::
+
+## Bloques especiales (callouts)
+
+Quarto permite crear bloques de texto resaltados usando la sintaxis `:::`:
+
+```markdown
+::: {.callout-note}
+Esto es una nota informativa.
+:::
+
+::: {.callout-warning}
+Esto es una advertencia.
+:::
+
+::: {.callout-tip}
+Esto es un consejo.
+:::
+
+::: {.callout-important}
+Esto es algo importante.
+:::
+```
+
+::: {.callout-note}
+Esto es una nota informativa.
+:::
+
+::: {.callout-warning}
+Esto es una advertencia.
+:::
+
+## Tablas en Markdown
+
+Puedes crear tablas simples con la sintaxis de barras verticales:
+
+```markdown
+| Estación | Caudal (m³/s) | Temperatura (°C) |
+|----------|:-------------:|------------------:|
+| Tena     | 12.5          | 24.3              |
+| Puyo     | 8.3           | 22.1              |
+| Upano    | 15.7          | 25.0              |
+```
+
+Resultado:
+
+| Estación | Caudal (m³/s) | Temperatura (°C) |
+|----------|:-------------:|------------------:|
+| Tena     | 12.5          | 24.3              |
+| Puyo     | 8.3           | 22.1              |
+| Upano    | 15.7          | 25.0              |
+
+Los dos puntos (`:`) en la línea de separación controlan la alineación: izquierda (`:---`), centro (`:---:`), derecha (`---:`).
+
+## Actividad autónoma
+
+Crea un nuevo documento Quarto (`.qmd`) con formato HTML que incluya:
+
+1. Un **título** y tu **nombre** como autor en el encabezado YAML.
+2. Al menos **dos secciones** con encabezados de nivel 2 (`##`).
+3. Un párrafo con texto en **negrita** y *cursiva*.
+4. Una **lista** (numerada o sin orden).
+5. Un **enlace** a una página web relevante para tu carrera.
+6. Al menos **dos ecuaciones**: una en línea y una en bloque. Usa ecuaciones relevantes para tu carrera.
+7. Un **callout** de tipo nota o consejo.
+8. Una **tabla** con al menos 3 filas de datos.
+
+Renderiza el documento y verifica que todo se muestre correctamente.
