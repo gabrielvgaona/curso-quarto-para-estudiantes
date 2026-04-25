@@ -1,0 +1,192 @@
+# Formatos de salida
+
+## Un archivo, múltiples formatos
+
+Una de las mayores ventajas de Quarto es que puedes generar diferentes formatos de salida desde el **mismo archivo fuente**. Escribes tu contenido una sola vez y Quarto lo convierte a:
+
+- **HTML** — para ver en navegador, interactivo y ligero.
+- **PDF** — para impresión y entrega formal (requiere LaTeX).
+- **Word (DOCX)** — para colaborar con personas que usan Word.
+
+El formato se controla desde el encabezado YAML.
+
+## Formato HTML
+
+```yaml
+---
+title: "Mi informe"
+format: html
+---
+```
+
+HTML es el formato más versátil. Soporta todas las funcionalidades de Quarto: gráficos interactivos, tabla de contenidos lateral, botones para copiar código, etc.
+
+### Opciones útiles para HTML
+
+```yaml
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    theme: cosmo
+```
+
+| Opción | Efecto |
+|---|---|
+| `toc: true` | Muestra tabla de contenidos |
+| `toc-depth: 3` | Hasta qué nivel de encabezado mostrar |
+| `number-sections: true` | Numera las secciones |
+| `code-fold: true` | Oculta el código (click para expandir) |
+| `code-tools: true` | Botón para ver/ocultar todo el código |
+| `theme` | Tema visual (cosmo, flatly, journal, etc.) |
+
+::: {.callout-tip}
+## Temas disponibles
+Quarto incluye muchos temas de Bootstrap. Puedes ver la lista completa en [quarto.org/docs/output-formats/html-themes.html](https://quarto.org/docs/output-formats/html-themes.html). Algunos populares: `cosmo`, `flatly`, `journal`, `lumen`, `sandstone`.
+:::
+
+## Formato PDF
+
+```yaml
+---
+title: "Mi informe"
+format: pdf
+---
+```
+
+PDF produce documentos con calidad de publicación. Requiere que tengas instalado TinyTeX (o una distribución completa de LaTeX).
+
+### Instalar TinyTeX
+
+Si no lo hiciste en el capítulo de instalación:
+
+```{r}
+#| eval: false
+tinytex::install_tinytex()
+```
+
+### Opciones útiles para PDF
+
+```yaml
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    documentclass: article
+    papersize: a4
+    geometry:
+      - margin=2.5cm
+    fontsize: 12pt
+```
+
+| Opción | Efecto |
+|---|---|
+| `documentclass` | Clase de documento LaTeX (`article`, `report`, `book`) |
+| `papersize` | Tamaño de papel (`a4`, `letter`) |
+| `geometry` | Márgenes del documento |
+| `fontsize` | Tamaño de fuente base |
+
+::: {.callout-warning}
+## PDF y figuras interactivas
+Los documentos PDF no soportan contenido interactivo. Si tu documento tiene elementos interactivos (como gráficos de plotly), estos se convertirán a imágenes estáticas en PDF.
+:::
+
+## Formato Word (DOCX)
+
+```yaml
+---
+title: "Mi informe"
+format: docx
+---
+```
+
+Este formato es útil cuando necesitas compartir el documento con colaboradores que usan Word, o cuando tu universidad requiere entrega en formato `.docx`.
+
+### Personalizar con plantilla
+
+Puedes usar una plantilla de Word para controlar estilos:
+
+1. Renderiza un documento en formato `docx` con Quarto.
+2. Abre el `.docx` generado en Word.
+3. Modifica los estilos (fuentes, colores, márgenes).
+4. Guarda como plantilla: `mi-plantilla.docx`.
+5. Referencia la plantilla en el YAML:
+
+```yaml
+format:
+  docx:
+    reference-doc: mi-plantilla.docx
+```
+
+## Múltiples formatos simultáneos
+
+Puedes generar varios formatos desde el mismo archivo:
+
+```yaml
+---
+title: "Mi informe"
+format:
+  html:
+    toc: true
+  pdf:
+    toc: true
+    papersize: a4
+  docx: default
+---
+```
+
+Para renderizar un formato específico desde la terminal:
+
+```bash
+quarto render mi-informe.qmd --to html
+quarto render mi-informe.qmd --to pdf
+quarto render mi-informe.qmd --to docx
+```
+
+O renderizar todos a la vez:
+
+```bash
+quarto render mi-informe.qmd
+```
+
+## Contenido condicional por formato
+
+A veces quieres que cierto contenido aparezca solo en un formato específico. Usa la sintaxis de contenido condicional:
+
+```markdown
+::: {.content-visible when-format="html"}
+Este texto solo aparece en la versión HTML.
+:::
+
+::: {.content-visible when-format="pdf"}
+Este texto solo aparece en la versión PDF.
+:::
+```
+
+Esto es útil, por ejemplo, para incluir instrucciones interactivas solo en HTML o notas de formato solo en PDF.
+
+## Comparación rápida de formatos
+
+| Característica | HTML | PDF | Word |
+|---|:---:|:---:|:---:|
+| Tabla de contenidos enlazada | ✓ | ✓ | ✓ |
+| Gráficos interactivos | ✓ | - | - |
+| Garantiza buena calidad de impresión | - | ✓ | ± |
+| Editable por otros | - | - | ✓ |
+| Requiere LaTeX | - | ✓ | - |
+| Código con botón copiar | ✓ | - | - |
+| Portable | - | ✓ | - |
+
+## Actividad autónoma
+
+1. Toma el documento que creaste en el capítulo anterior (o crea uno nuevo con al menos un gráfico, una tabla y una cita).
+2. Configura el YAML para generar **tres formatos**: HTML, PDF y Word.
+3. Renderiza los tres formatos.
+4. Compara los resultados:
+   - ¿Qué diferencias notas entre los tres formatos?
+   - ¿Cuál se ve mejor para un informe académico?
+   - ¿Cuál es más práctico para compartir?
+5. Experimenta con al menos **2 opciones** de formato (por ejemplo, cambiar el tema HTML o ajustar los márgenes del PDF).
