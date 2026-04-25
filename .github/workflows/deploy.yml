@@ -19,7 +19,7 @@ jobs:
       - name: Install system dependencies
         run: |
           apt-get update
-          apt-get install -y curl jq lftp wget
+          apt-get install -y curl jq lftp wget sudo
           apt install -y cmake git gsfonts libabsl-dev libcairo2-dev libcurl4-openssl-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libgdal-dev libgeos-dev libgl1-mesa-dev libglpk-dev libglu1-mesa-dev libharfbuzz-dev libicu-dev libjpeg-dev libmagick++-dev libmysqlclient-dev libnode-dev libpng-dev libpoppler-cpp-dev libproj-dev libprotobuf-dev libprotoc-dev libsodium-dev libsqlite3-dev libssh2-1-dev libssl-dev libtiff-dev libudunits2-dev libuv1-dev libwebp-dev libx11-dev libxml2-dev make poppler-data protobuf-compiler python3  unixodbc-dev zlib1g-dev
 
       - name: Install Quarto CLI
