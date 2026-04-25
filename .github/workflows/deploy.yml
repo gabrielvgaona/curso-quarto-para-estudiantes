@@ -72,12 +72,13 @@ jobs:
               quit
               EOF
           else
-            lftp -u "$USERNAME","$PASSWORD" -p "$PORT" "$PROTOCOL://$HOST" <<'EOF'
-              set ftp:ssl-allow yes
-              set ftp:ssl-force yes
-              set ssl:verify-certificate no
-              set ftp:passive-mode on
-              mirror -R --delete --verbose _book/ "$TARGET_DIR"
-              quit
-              EOF
+             lftp -u "$USERNAME","$PASSWORD" -p "$PORT" "$PROTOCOL://$HOST" <<'EOF'
+               set ftp:ssl-allow yes
+               set ftp:ssl-force yes
+               set ssl:verify-certificate no
+               set ftp:passive-mode on
+               mirror -R --delete --verbose _book/ "$TARGET_DIR"
+               quit
+               EOF
           fi
+
