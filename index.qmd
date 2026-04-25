@@ -1,0 +1,57 @@
+# Bienvenida {.unnumbered}
+
+Este curso te enseñará a crear **documentos técnicos reproducibles** usando [Quarto](https://quarto.org), una herramienta moderna de publicación científica. Al finalizar, serás capaz de escribir informes, tareas y hasta tu tesis de grado combinando texto, código, figuras y citas bibliográficas en un solo documento.
+
+## ¿A quién está dirigido?
+
+A estudiantes de la Universidad Regional Amazónica Ikiam en general. Sin embargo a lo largo del texto se usan ejemplos más relacionados con las carreras  de las carreras de **Hidrología**, **Electromecánica** y **Geociencias**. Como sea, no necesitas experiencia previa con Quarto, pero sí conocimientos básicos de:
+
+- Uso de computadora e internet
+- Programación básica (idealmente en R)
+- Escritura académica
+
+## Objetivos de aprendizaje
+
+Al completar este curso podrás:
+
+1. Crear documentos con texto formateado, ecuaciones, figuras y tablas.
+2. Incluir bloques de código en R que se ejecutan dentro del documento.
+3. Agregar citas bibliográficas y generar la lista de referencias automáticamente.
+4. Exportar tu documento a HTML, PDF y Word.
+5. Colaborar en equipo usando Git y GitHub.
+6. Producir un informe técnico completo con calidad de publicación.
+
+## Estructura del curso
+
+El curso se desarrolla durante **2 semanas** (10 días hábiles) con sesiones virtuales de 1 hora diaria y actividades autónomas de al menos 1 hora diaria.
+
+| Día | Sesión sincrónica (1h) | Trabajo autónomo (1h) |
+|:---:|------------------------|----------------------|
+| 1 | ¿Qué es Quarto y por qué usarlo? | Explorar la Quarto Gallery |
+| 2 | Instalación y configuración | Ejercicio "Hola Quarto" |
+| 3 | Markdown: texto con formato | Escribir un resumen con ecuaciones |
+| 4 | Bloques de código en R | Cargar datos y generar un gráfico |
+| 5 | Figuras, tablas y referencias cruzadas | Mini-informe con figuras y tablas |
+| 6 | Citas bibliográficas | Buscar artículos y citarlos |
+| 7 | Formatos de salida (HTML, PDF, Word) | Renderizar en 3 formatos |
+| 8 | Git y GitHub para trabajo colaborativo | Crear repo y hacer commits |
+| 9 | Proyecto integrador — inicio grupal | Definir tema, estructura y datos |
+| 10 | Presentaciones y cierre | Pulir y entregar informe final |
+
+## Requisitos previos
+
+Antes de la primera sesión, asegúrate de tener:
+ 
+- [ ] Una computadora con acceso a internet
+- [ ] [R](https://cran.r-project.org/) instalado (versión 4.3 o superior)
+- [ ] [RStudio](https://posit.co/download/rstudio-desktop/) instalado (versión 2024.04 o superior)
+- [ ] [Quarto](https://quarto.org/docs/get-started/) instalado
+- [ ] Una cuenta gratuita en [GitHub](https://github.com) (la necesitarás en la semana 2)
+
+## Carga horaria
+
+| Componente | Horas |
+|---|---|
+| Sesiones sincrónicas | 10 h |
+| Trabajo autónomo | 10 h |
+| **Total** | **20 h** |
