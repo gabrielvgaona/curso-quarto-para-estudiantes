@@ -1,0 +1,190 @@
+# Figuras, tablas y referencias cruzadas
+
+## ¿Qué son las referencias cruzadas?
+
+En un documento técnico es habitual referirse a figuras y tablas dentro del texto: "como se muestra en la Figura 1" o "los valores se presentan en la Tabla 2". Las **referencias cruzadas** de Quarto automatizan esta numeración: si agregas o reorganizas figuras, los números se actualizan solos.
+
+Para que funcionen, necesitas dos cosas:
+
+1. Una **etiqueta** (`label`) en la figura o tabla.
+2. Una **referencia** en el texto con `@`.
+
+## Figuras desde código
+
+### Crear una figura con etiqueta
+
+Para que una figura sea referenciable, el bloque de código necesita una etiqueta que empiece con `fig-` y un `fig-cap`:
+
+```{r}
+#| label: fig-distribucion-caudal
+#| fig-cap: "Distribución del caudal en la estación de ejemplo"
+#| fig-width: 6
+#| fig-height: 4
+#| message: false
+library(tidyverse)
+
+datos <- read_csv("datos/ejemplo-hidro.csv")
+
+ggplot(datos, aes(x = caudal_m3s)) +
+  geom_histogram(bins = 15) +
+  labs(x = "Caudal (m³/s)", y = "Frecuencia")
+```
+
+### Referenciar la figura en el texto
+
+En tu texto Markdown, escribe `@fig-distribucion-caudal` para insertar la referencia:
+
+```markdown
+La @fig-distribucion-caudal muestra la distribución del caudal observado.
+```
+
+Resultado: La @fig-distribucion-caudal muestra la distribución del caudal observado.
+
+::: {.callout-important}
+## Reglas para las etiquetas
+- Las etiquetas de figuras **deben** empezar con `fig-`.
+- Las etiquetas de tablas **deben** empezar con `tbl-`.
+- Usa solo letras minúsculas, números y guiones (sin espacios ni caracteres especiales).
+:::
+
+### Opciones de tamaño
+
+| Opción | Descripción | Ejemplo |
+|---|---|---|
+| `fig-width` | Ancho en pulgadas | `fig-width: 7` |
+| `fig-height` | Alto en pulgadas | `fig-height: 5` |
+| `fig-align` | Alineación | `fig-align: center` |
+| `out-width` | Ancho en el documento | `out-width: "80%"` |
+
+### Múltiples figuras en un panel
+
+Puedes mostrar varias figuras lado a lado usando `layout-ncol`:
+
+```{r}
+#| label: fig-panel-ejemplo
+#| fig-cap: "Comparación de variables hidrológicas"
+#| fig-subcap:
+#|   - "Caudal por mes"
+#|   - "Temperatura por mes"
+#| layout-ncol: 2
+#| fig-width: 4
+#| fig-height: 3
+
+ggplot(datos, aes(x = factor(mes), y = caudal_m3s)) +
+  geom_boxplot() +
+  labs(x = "Mes", y = "Caudal (m³/s)")
+
+ggplot(datos, aes(x = factor(mes), y = temperatura_c)) +
+  geom_boxplot() +
+  labs(x = "Mes", y = "Temperatura (°C)")
+```
+
+Puedes referenciar el panel completo con `@fig-panel-ejemplo` o cada subfigura individual con `@fig-panel-ejemplo-1` y `@fig-panel-ejemplo-2`.
+
+## Figuras desde archivos de imagen
+
+También puedes insertar imágenes externas con referencias cruzadas:
+
+```markdown
+![Logo de Ikiam](img/logo-ikiam.png){#fig-logo-ikiam fig-align="center" width=200}
+```
+
+![Logo de Ikiam](img/logo-ikiam.png){#fig-logo-ikiam fig-align="center" width=200}
+
+Y referenciarla con `@fig-logo-ikiam`. Por ejemplo: `la @fig-logo-ikiam muestra el logo actual de la URAI` se verá como: *la @fig-logo-ikiam muestra el logo actual de la URAI*
+
+## Tablas calculadas con R
+
+### Tablas con `knitr::kable()`
+
+La forma más sencilla de crear una tabla desde R:
+
+```{r}
+#| label: tbl-resumen-mensual
+#| tbl-cap: "Resumen mensual de variables hidrológicas"
+datos |>
+  group_by(mes) |>
+  summarise(
+    caudal_medio = round(mean(caudal_m3s), 1),
+    temp_media = round(mean(temperatura_c), 1),
+    precip_total = round(sum(precipitacion_mm), 0)
+  ) |>
+  knitr::kable(
+    col.names = c("Mes",
+                  "Caudal medio (m³/s)",
+                  "Temp. media (°C)", 
+                  "Precip. total (mm)")
+  )
+```
+
+Referencia en el texto: `Los promedios mensuales se presentan en la @tbl-resumen-mensual.`
+
+Se muestra en el documento como: Los promedios mensuales se presentan en la @tbl-resumen-mensual.
+
+### Tablas con `gt`
+
+El paquete `gt` permite crear tablas con formato más profesional:
+
+```{r}
+#| label: tbl-estadisticas
+#| tbl-cap: "Estadísticas descriptivas del caudal"
+library(gt)
+
+datos |>
+  summarise(
+    n = n(),
+    media = mean(caudal_m3s),
+    mediana = median(caudal_m3s),
+    desv_est = sd(caudal_m3s),
+    minimo = min(caudal_m3s),
+    maximo = max(caudal_m3s)
+  ) |>
+  gt() |>
+  fmt_number(columns = c(media, mediana, desv_est, minimo, maximo), 
+             decimals = 2) |>
+  cols_label(
+    n = "N",
+    media = "Media",
+    mediana = "Mediana",
+    desv_est = "Desv. Est.",
+    minimo = "Mínimo",
+    maximo = "Máximo"
+  )
+```
+
+
+Referencia en el texto: `Como se observa en la @tbl-estadisticas, el caudal...`
+
+Se muestra en el documento como: *Como se observa en la @tbl-estadisticas, el caudal presenta variabilidad considerable*.
+
+
+## Resumen de prefijos para referencias
+
+| Tipo | Prefijo de etiqueta | Ejemplo de referencia |
+|---|---|---|
+| Figura | `fig-` | `@fig-nombre` |
+| Tabla | `tbl-` | `@tbl-nombre` |
+| Ecuación | `eq-` | `@eq-nombre` |
+| Sección | `sec-` | `@sec-nombre` |
+
+Recuerda que también puedes referenciar ecuaciones. En el capítulo de Markdown vimos la @eq-manning y la @eq-ohm.
+
+## Actividad autónoma
+
+Crea un documento Quarto que simule un **mini-informe técnico** con:
+
+1. Al menos **2 figuras** generadas con código R, cada una con:
+   - Etiqueta (`label: fig-...`)
+   - Título (`fig-cap`)
+   - Referencia en el texto (`@fig-...`)
+
+2. Al menos **1 tabla** generada con `knitr::kable()` o `gt`, con:
+   - Etiqueta (`label: tbl-...`)
+   - Título (`tbl-cap`)
+   - Referencia en el texto (`@tbl-...`)
+
+3. Texto que **conecte** las figuras y tablas, describiendo lo que muestran (como harías en un informe real).
+
+Puedes usar el dataset `datos/ejemplo-hidro.csv` o cualquier otro que tengas disponible.
+
+
