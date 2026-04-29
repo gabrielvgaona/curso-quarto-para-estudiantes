@@ -1,5 +1,7 @@
 project:
   type: book
+  preview:
+    port: 4200
 
 book:
   title: "Escribe tus informes con Quarto y R"
@@ -43,6 +45,7 @@ format:
     number-sections: true
     code-tools: true
     code-copy: true
+    code-annotations: hover
     highlight-style: github
     link-external-icon: true
     link-external-newwindow: true
