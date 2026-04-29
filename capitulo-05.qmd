@@ -15,12 +15,30 @@ Para que funcionen, necesitas dos cosas:
 
 Para que una figura sea referenciable, el bloque de código necesita una etiqueta que empiece con `fig-` y un `fig-cap`:
 
+````markdown
+```{{r}}
+#| label: fig-distribucion-caudal                                    <!-- <1> -->
+#| fig-cap: "Distribución del caudal en la estación de ejemplo"      <!-- <2> -->
+
+library(tidyverse)
+
+datos <- read_csv("datos/ejemplo-hidro.csv")
+
+ggplot(datos, aes(x = caudal_m3s)) +
+  geom_histogram(bins = 15) +
+  labs(x = "Caudal (m³/s)", y = "Frecuencia")
+```
+````
+1. Etiqueta única para la figura
+2. Descripción suficientemente explicativa de la figura.
+
 ```{r}
 #| label: fig-distribucion-caudal
 #| fig-cap: "Distribución del caudal en la estación de ejemplo"
 #| fig-width: 6
 #| fig-height: 4
 #| message: false
+#| echo: false
 library(tidyverse)
 
 datos <- read_csv("datos/ejemplo-hidro.csv")
@@ -60,6 +78,36 @@ Resultado: La @fig-distribucion-caudal muestra la distribución del caudal obser
 
 Puedes mostrar varias figuras lado a lado usando `layout-ncol`:
 
+````markdown
+```{{r}}
+#| label: fig-panel-ejemplo                                         <!-- <1> -->
+#| fig-cap: "Comparación de variables hidrológicas"                 <!-- <2> -->
+#| fig-subcap:                                                      <!-- <3> -->
+#|   - "Caudal por mes"                                             <!-- <4> -->
+#|   - "Temperatura por mes"                                        <!-- <5> -->
+#| layout-ncol: 2                                                   <!-- <6> -->
+#| fig-width: 4                                                     <!-- <7> -->
+#| fig-height: 3                                                    <!-- <7> -->
+
+ggplot(datos, aes(x = factor(mes), y = caudal_m3s)) +               <!-- <8> -->
+  geom_boxplot() +                                                  <!-- <8> -->
+  labs(x = "Mes", y = "Caudal (m³/s)")                              <!-- <8> -->
+
+ggplot(datos, aes(x = factor(mes), y = temperatura_c)) +            <!-- <9> -->
+  geom_boxplot() +                                                  <!-- <9> -->
+  labs(x = "Mes", y = "Temperatura (°C)")                           <!-- <9> -->
+```
+````
+1. Etiqueta única para el grupo de figuras
+2. Descripción general del grupo de figuras
+3. Parámetro para listar la descridpción de cada subfigura en el grupo
+4. Descripción de la subfigura "a". Observa que cada descripción empieza con un guión
+5. Descripción de la subfigura "b". Observa que cada descripción empieza con un guión
+6. Diseño de dos columnas para distribuir las subfiguras horizontalmente.
+7. El ancho y alto de la figura es en pulgadas y se aplica a todas las subfiguras.
+8. Este es el código que genera la primera figura. Es importante que al ejecutar este código efectivamente se muestre la figura.
+9. Este es el código que genera la segunda figura
+
 ```{r}
 #| label: fig-panel-ejemplo
 #| fig-cap: "Comparación de variables hidrológicas"
@@ -69,6 +117,7 @@ Puedes mostrar varias figuras lado a lado usando `layout-ncol`:
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3
+#| echo: false
 
 ggplot(datos, aes(x = factor(mes), y = caudal_m3s)) +
   geom_boxplot() +
@@ -99,9 +148,33 @@ Y referenciarla con `@fig-logo-ikiam`. Por ejemplo: `la @fig-logo-ikiam muestra 
 
 La forma más sencilla de crear una tabla desde R:
 
+````markdown
+```{{r}}
+#| label: tbl-resumen-mensual                                       <!-- <1> -->
+#| tbl-cap: "Resumen mensual de variables hidrológicas"             <!-- <2> -->
+datos |>
+  group_by(mes) |>
+  summarise(
+    caudal_medio = round(mean(caudal_m3s), 1),
+    temp_media = round(mean(temperatura_c), 1),
+    precip_total = round(sum(precipitacion_mm), 0)
+  ) |>
+  knitr::kable(
+    col.names = c("Mes",
+                  "Caudal medio (m³/s)",
+                  "Temp. media (°C)", 
+                  "Precip. total (mm)")
+  )
+```
+````
+1. En este caso la etiqueta empieza con `tbl-` y el resto es una etiqueta única para este bloque.
+2. `tbl-cap` tiene una descripción lo suficientemente descriptiva. Tal como en el caso de las figuras se recomienda poner entre comillas. 
+
+
 ```{r}
 #| label: tbl-resumen-mensual
 #| tbl-cap: "Resumen mensual de variables hidrológicas"
+#| echo: false
 datos |>
   group_by(mes) |>
   summarise(

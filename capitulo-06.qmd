@@ -69,10 +69,11 @@ En el encabezado YAML de tu documento, indica la ruta al archivo `.bib`:
 ---
 title: "Mi informe"
 author: "Tu nombre"
-bibliography: referencias.bib
+bibliography: referencias.bib                                       # <1>
 format: html
 ---
 ```
+1. Cuando solo aparece el nombre del fichero significa que el archivo `referencias.bib` se encuentra en el mismo directorio que documento qmd.
 
 ::: callout-note
 En este curso, el archivo `referencias.bib` ya está configurado a nivel del libro en `_quarto.yml`, así que no se necesita agregarlo en cada documento individual.
@@ -114,9 +115,10 @@ El formato de las citas (APA, IEEE, Vancouver, etc.) se controla con un archivo 
 ``` yaml
 ---
 bibliography: referencias.bib
-csl: apa.csl
+csl: apa.csl                     # <1>
 ---
 ```
+1. Por defecto Quarto usa el estilo Chicago, formato Autor-fecha. en este caso el fichero `apa.cls` se encuentra también en el mismo directorio que el documento de quarto.
 
 Puedes descargar estilos CSL desde el [repositorio de estilos de Zotero](https://www.zotero.org/styles). Algunos estilos comunes:
 

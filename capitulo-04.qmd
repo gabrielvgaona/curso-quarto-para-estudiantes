@@ -144,14 +144,14 @@ summary(datos)
 
 ## Crear un gráfico básico
 
-En Quarto también puedes generar gráficos mediante código, si es necesario. Para completar el ejermplo práctico anterior, puedes agregar un bloque de código adicional donde se cree un gráfico a partir de los datos (copia y pega el siguiente contenido al final del documento):
+En Quarto también puedes generar gráficos mediante código, si es necesario. Para completar el ejermplo práctico anterior, puedes agregar un bloque de código adicional donde se cree un gráfico a partir de los datos. Copia y pega el siguiente contenido al final del documento. ([Posa el puntero sobre los números a la derecha, para ver una explicación de las líneas importantes.]{style="color: grey;"}):
 
 ````markdown
 ```{{r}}
-#| label: fig-caudal-mensual
-#| fig-cap: "Caudal medio mensual en la estación de ejemplo"
-#| fig-width: 7
-#| fig-height: 4
+#| label: fig-caudal-mensual                                   <!-- <1> -->
+#| fig-cap: "Caudal medio mensual en la estación de ejemplo"   <!-- <2> -->
+#| fig-width: 7                                                <!-- <3> -->
+#| fig-height: 4                                               <!-- <4> -->
 ggplot(datos, aes(x = fecha, y = caudal_m3s)) +
   geom_line() +
   labs(
@@ -160,6 +160,11 @@ ggplot(datos, aes(x = fecha, y = caudal_m3s)) +
   )
 ```
 ````
+1. Observa que la etiqueta empieza con `fig-` y luego se completa con `caudal-mensual`. Esta última parte debe ser única, algo que no se haya usado en ninguna otra parte del documento.
+2. Se trata de la descripción de la figura. Puede ser tan larga como se necesite. Te recomiendo que siempre la pongas entre comillas.
+3. Este esel ancho de la figura en pulgadas.
+4. Este es el alto de la figura en pulgadas.
+
 ... luego presiona el botón de [Render] y mira el resultado.
 
 ```{r}
@@ -185,12 +190,15 @@ Puedes establecer opciones predeterminadas para **todos** los bloques de código
 ```yaml
 ---
 title: "Mi informe"
-execute:
-  echo: true
-  warning: false
-  message: false
+execute:                    # <1>
+  echo: true                # <2>
+  warning: false            # <2>
+  message: false            # <2>
 ---
 ```
+1. Este es el encabezado de una sección de múltiples parámetros
+2. Cada parámetro debe estar identado con 2 o 4 espacios. Pero siempre se debe conservar la misma identación para los parámetros del mismo nivel.
+
 
 Esto evita repetir las mismas opciones en cada bloque.
 
@@ -204,3 +212,4 @@ Crea un documento Quarto que:
 4. Reporte esa estadística en el texto usando **código inline** (por ejemplo: "El caudal promedio fue de X m³/s").
 5. Genere un **gráfico** con `ggplot2` que muestre la distribución o tendencia de una variable.
 6. Incluya al menos un bloque con `echo: false` (solo resultado) y otro con `echo: true` (código visible).
+
